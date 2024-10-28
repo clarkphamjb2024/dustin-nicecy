@@ -89,21 +89,34 @@
 	});
 </script>
 <script>
-
-	let citiesDistrictsData = [];
+	let citiesDistrictsData = [
+		{
+			"city": "HCM",
+			"districts": [
+				{
+					"id": 1,
+					"text": "Quận 1"
+				},
+				{
+					"id": 2,
+					"text": "Quận Phú Nhuận"
+				}
+			]
+		}
+	];
 	function initData() {
 		// Fetch data
-		$.ajax({
-			url: "https://localhost:44366/assets/data.json",
-			type: "GET",
-			success: function (data) {
-				citiesDistrictsData = data;
-			},
-			error: function (xhr, status, error) {
-				console.error("Error fetching city and district data:", error);
-				alert("Failed to load city and district data.");
-			}
-		});
+		//$.ajax({
+		//	url: "https://localhost:44366/assets/data.json",
+		//	type: "GET",
+		//	success: function (data) {
+		//		citiesDistrictsData = data;
+		//	},
+		//	error: function (xhr, status, error) {
+		//		console.error("Error fetching city and district data:", error);
+		//		alert("Failed to load city and district data.");
+		//	}
+		//});
 
 		// Initialize Select2 for city and district fields
 		$('#select-city-field, #multiple-select-district-field').select2({
@@ -186,11 +199,25 @@
 			let allAvailableDistricts = [];
 
 			if (citiesDistrictsData && citiesDistrictsData.length > 0) {
-				citiesDistrictsData.forEach(d => {
-					const districts = d.districts.filter(x => searchParams.get('ap').split('.').includes(x.id.toString()));
-					selectedDistrictsFromUser.push(...districts);
+				//citiesDistrictsData.forEach(d => {
+				//	const districts = d.districts.filter(x => searchParams.get('ap').split('.').includes(x.id.toString()));
+				//	selectedDistrictsFromUser.push(...districts);
+				//});
+				//$('#ap').text(selectedDistrictsFromUser.map(d => d.text).join(', '));
+				citiesDistrictsData.forEach(data => {
+					const selectedDistricts = data.districts.filter(district => searchParams.get('ap').split('.').includes(district.id.toString()));
+
+					if (selectedDistricts.length > 0) {
+						allAvailableDistricts.push(...data.districts);
+						$('#select-city-field').select2().val(data.city).trigger('change');
+						selectedDistrictsFromUser.push(...selectedDistricts);
+					}
 				});
+
 				$('#ap').text(selectedDistrictsFromUser.map(d => d.text).join(', '));
+				$("#multiple-select-district-field").select2({
+					data: allAvailableDistricts
+				}).val(selectedDistrictsFromUser.map(d => d.id)).trigger('change');
 			} else {
 				$.ajax({
 					url: "https://localhost:44366/assets/data.json",
