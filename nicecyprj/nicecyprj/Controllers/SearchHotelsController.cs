@@ -116,7 +116,7 @@ namespace nicecyprj.Controllers
 						if (availableHotels != null && availableHotels.result && availableHotels.data != null && availableHotels.data.hotels.Any())
 						{
 							var htlHotelIds = availableHotels.data.hotels.Select(g => g.hotel_id).ToList();
-							ksModel.Data = ksModel.Data.Where(hotel => htlHotelIds.Contains(hotel.HTLID)).ToList();
+							ksModel.Data = ksModel.Data.Where(hotel => htlHotelIds.Contains(hotel.HTLID) && districtIds.Contains(hotel.DistrictID.ToString())).ToList();
 
 							var start_date = request.dt.Split('-')[0];
 							var end_date = request.dt.Split('-')[1];
