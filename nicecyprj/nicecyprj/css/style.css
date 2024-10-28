@@ -158,6 +158,13 @@ a {
 
 .daterangepicker {
 	position: fixed;
-	top: 100px !important;
+	top: 316px !important;	
+}
+
+@media (max-width: 700px) {
+	.daterangepicker {
+		position: fixed;
+		top: 100px !important;
+	}	
 }
 
