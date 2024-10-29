@@ -75,18 +75,20 @@
 	});
 </script>
 <script>
-	$(function () {
-		$('input[name="daterange"]').daterangepicker({
-			opens: 'left'
-		}, function (start, end, label) {
-			console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-			localStorage.setItem("dt", start.format('YYYY-MM-DD') + '.' + end.format('YYYY-MM-DD'));
-		});
-	});
+	//$(function () {
+	//	$('input[name="daterange"]').daterangepicker({
+	//		opens: 'left',
+	//		startDate: '03/05/2005',
+	//		endDate: '03/06/2005'
+	//	}, function (start, end, label) {
+	//		console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	//		localStorage.setItem("dt", start.format('YYYY-MM-DD') + '.' + end.format('YYYY-MM-DD'));
+	//	});
+	//});
 
-	$('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
-		$(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-	});
+	//$('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
+	//	$(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+	//});
 </script>
 <script>
 	let citiesDistrictsData = [
@@ -249,6 +251,27 @@
 
 		if (searchParams.has('dt')) {
 			$('#dt').text(searchParams.get('dt').split('-')[0] + " - " + searchParams.get('dt').split('-')[1]);
+
+			$(function () {
+				$('input[name="daterange"]').daterangepicker({
+					opens: 'left',
+					startDate: searchParams.get('dt').split('-')[0],
+					endDate: searchParams.get('dt').split('-')[1]
+				}, function (start, end, label) {
+					console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+					localStorage.setItem("dt", start.format('YYYY-MM-DD') + '.' + end.format('YYYY-MM-DD'));
+				});
+			});
+		}
+		else {
+			$(function () {
+				$('input[name="daterange"]').daterangepicker({
+					opens: 'left',
+				}, function (start, end, label) {
+					console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+					localStorage.setItem("dt", start.format('YYYY-MM-DD') + '.' + end.format('YYYY-MM-DD'));
+				});
+			});
 		}
 	}
 

@@ -137,7 +137,7 @@
 	</section>
 
 	<section class="py-[20px]">
-		<div class="flex flex-col md:flex-col lg:flex-col mx-auto bg-white md:px-[20px] lg:px-[20px] rounded gap-3 mx-auto w-full rounded ">
+		<div class="flex flex-col md:flex-col lg:flex-col mx-auto bg-white md:px-[20px] lg:px-[20px] rounded gap-3 mx-auto w-full rounded">
 			@if (Model.Data != null && Model.Data.Any())
 			{
 				foreach (var hotel in Model.Data)
@@ -200,6 +200,13 @@
 						</div>
 					</div>
 				}
+			}
+			else 
+			{ 
+				<div class="mx-auto flex flex-col justify-center gap-5">
+					<img src="~/assets/hotel.png" style="width:200px; height:200px" class="mx-auto"/>
+					<span class="text-base">Không tìm thấy khách sạn. Bạn vui lòng kiểm tra lại ngày đến và ngày đi nhé.</span>
+				</div>
 			}
 
 		</div>
