@@ -6,28 +6,240 @@
 	var slideImages = homePage.LandscapeImages?.ToList();
 }
 
-<div class="w-full relative">
-	<div class="swiper progress-slide-carousel swiper-container relative">
+<div class="w-full relative hidden lg:block md:block mt-[-64px]">
+	<div class="swiper master-carousel swiper-container">
 		<div class="swiper-wrapper">
 			@if (slideImages != null)
 			{
 				for (int i = 0; i < slideImages.Count(); i++)
 				{
-					<style>
-						#swiper-background-@i {
-							background-image: url(@slideImages[i].Url());
-						}
-					</style>
 					<div class="swiper-slide">
-						<div class="bg-indigo-50 flex justify-center items-center h-[80vh]" style="
-						background-repeat: no-repeat;
-						background-position: center;
-						background-size: cover;" id="swiper-background-@i">
+						<div class="lg:h-[950px] md:h-[600px] h-[600px] flex justify-center items-center"
+							 style="background-image: url(@slideImages[i].Url()); background-size: cover; background-position: center;">
+							<a class="uppercase text-xl mt-[200px] bg-black text-white p-4 rounded-full w-[150px] text-center cursor-pointer transition-all duration-300 hover:bg-orange-500">
+								Khám
+								Phá
+							</a>
+						</div>
+					</div>
+				}
+			}	
+		</div>
+		<div class="swiper-pagination pb-[80px]"></div>
+	</div>
+</div>
+
+<div class="w-full relative block lg:hidden md:hidden mt-[200px]">
+	<div class="swiper master-carousel swiper-container">
+		<div class="swiper-wrapper">
+			@if (slideImages != null)
+			{
+				for (int i = 0; i < slideImages.Count(); i++)
+				{
+					<div class="swiper-slide">
+						<div class="bg-indigo-50 h-[800px] flex justify-center items-center"
+							 style="background-image:url(@slideImages[i].Url()); background-size: cover; background-position: center;">
 						</div>
 					</div>
 				}
 			}
 		</div>
-		<div class="swiper-pagination !bottom-2 !top-auto !w-80 right-0 mx-auto bg-gray-100"></div>
+		<div class="swiper-pagination pb-[80px]"></div>
+	</div>
+</div>
+
+<div class="hidden lg:block md:block">
+	<div class="w-full relative block flex justify-center items-center mt-[-600px] z-[100]">
+		<div class="md:w-[850px] lg:w-[990px] flex">
+			<div class="w-full text-center h-[70px] bg-white rounded-full flex p-2 px-6 gap-5">
+				<div class="flex flex-col w-[250px] border-r cursor-pointer hover:bg-slate-100 hover:rounded-lg hover:shadow-xl p-1 modal-button"
+					 data-pd-overlay="#large-modal" data-modal-target="large-modal" data-modal-toggle="large-modal">
+					<span class="text-sm text-orange-500 text-left">Chọn vị trí</span>
+					<div class="flex flex-row w-full">
+						<div id="typed-output" class="text-left truncate-text"></div>
+					</div>
+				</div>
+				<div>
+					<div id="large-modal"
+						 class="pd-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto mt-[390px]">
+						<div class=" opacity-0 ease-out modal-open:opacity-100 transition-all modal-open:duration-500 lg:max-w-[950px] lg:w-full m-3 lg:mx-auto">
+							<div class="flex flex-col bg-white rounded-2xl py-4 px-5">
+								<div class="flex justify-between pb-4 border-b border-gray-200">
+									<h4 class="text-sm text-gray-900 font-medium"></h4>
+									<button class="block cursor-pointer close-modal-button bg-orange-500 rounded-full text-white"
+											data-pd-overlay="#large-modal" data-modal-target="large-modal">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											 class="text-white" xmlns="http://www.w3.org/2000/svg">
+											<path d="M7.75732 7.75739L16.2426 16.2427M16.2426 7.75739L7.75732 16.2427"
+												  stroke="white" stroke-width="1.6" stroke-linecap="round"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="overflow-y-auto py-4 min-h-[100px]">
+									<div class="w-full flex flex-col lg:flex-row md:flex-row p-2">
+										<div class="w-full lg:w-1/2 md:w-1/2 flex flex-col gap-2 border-r mr-[10px]">
+											<span class="uppercase text-gray-500 w-full text-left">Thành phố</span>
+											<div>
+												<div class="w-full flex flex-row gap-2">
+													<label class="custom-checkbox p-1 border border-gray-300 rounded-full cursor-pointer w-[120px]">
+														<input type="checkbox" class="cbCity" value="Hồ Chí Minh"
+															   id="HCM" onclick="toggleCheckbox()">
+														<span>Hồ Chí Minh</span>
+													</label>
+												</div>
+											</div>
+											<span class="uppercase text-gray-500 w-full text-left mt-[20px]">
+												Quận
+												huyện
+											</span>
+											<div>
+												<div class="w-full flex flex-row gap-2">
+													<label class="custom-checkbox p-1 border border-gray-300 rounded-full cursor-pointer w-[120px]">
+														<input type="checkbox" class="cbDistrict" value="Quận 1"
+															   onclick="toggleDistrictCheckbox()">
+														<span>Quận 1</span>
+													</label>
+													<label class="custom-checkbox p-1 border border-gray-300 rounded-full cursor-pointer w-[120px]">
+														<input type="checkbox" class="cbDistrict" value="Quận 4"
+															   onclick="toggleDistrictCheckbox()">
+														<span>Quận 4</span>
+													</label>
+													<label class="custom-checkbox p-1 border border-gray-300 rounded-full cursor-pointer w-[150px]">
+														<input type="checkbox" class="cbDistrict"
+															   value="Quận Bình Thuận"
+															   onclick="toggleDistrictCheckbox()">
+														<span>Quận Bình Thuận</span>
+													</label>
+												</div>
+
+												<p id="selected-options"></p>
+											</div>
+										</div>
+										<div class="w-full lg:w-1/2 md:w-1/2 flex flex-col gap-3 justify-content-left items-start">
+											<span class="uppercase text-gray-500 w-full text-left">
+												Địa điểm phổ
+												biến
+											</span>
+											<div class="w-full flex flex-row gap-2 rounded">
+												<img class="rounded-lg h-[74px] w-[80px]"
+													 src="https://img.mvillage.vn/VNRO9HiX5n2xg5GZVp26Awh8Irpc4NpAXKmmW-Ovt-I/rs:fit:500:500/plain/https%3A%2F%2Fcdn-v2.mvillage.vn%2Fcms%2FSBMV_Tho_Nhuom_ee1044f52d.png">
+												<div class="w-full flex flex-col gap-1 items-start">
+													<div class="w-full flex flex-row">
+														<span class="bg-blue-100 p-1 text-xs rounded-full text-blue-500">
+															Du
+															lịch nghỉ dưỡng
+														</span>
+													</div>
+													<span>Signature by M Village Thợ Nhuộm</span>
+													<span class="text-sm text-green-500">Quận 1</span>
+												</div>
+											</div>
+											<div class="w-full flex flex-row gap-2 rounded">
+												<img class="rounded-lg h-[74px] w-[80px]"
+													 src="https://img.mvillage.vn/Jm_DBMDbinezYcoNBE569g5UiWsqLYB2yGWBIvGkRkI/rs:fit:500:500/plain/https%3A%2F%2Fcdn-v2.mvillage.vn%2Fcms%2FM_Village_Nguyen_Binh_Khiem_01_82410945a0.jpg">
+												<div class="w-full flex flex-col gap-1 items-start">
+													<div class="w-full flex flex-row">
+														<span class="bg-blue-100 p-1 text-xs rounded-full text-blue-500">
+															Du
+															lịch nghỉ dưỡng
+														</span>
+													</div>
+													<span>Express by M Village Nguyễn Bỉnh Khiêm</span>
+													<span class="text-sm text-green-500">Quận 1</span>
+												</div>
+											</div>
+											<div class="w-full flex flex-row gap-2 rounded">
+												<img class="rounded-lg h-[74px] w-[80px]"
+													 src="https://img.mvillage.vn/dbJXmnlck8mRqBjVXpTKnfp7m61IZYcG9nVSBd4dTp8/rs:fit:500:500/plain/https%3A%2F%2Fcdn-v2.mvillage.vn%2Fcms%2Fimage_225082743_526424c0c2.jpg">
+												<div class="w-full flex flex-col gap-1 items-start">
+													<div class="w-full flex flex-row">
+														<span class="bg-blue-100 p-1 text-xs rounded-full text-blue-500">
+															Du
+															lịch nghỉ dưỡng
+														</span>
+													</div>
+													<span>Express by M Village Võ Văn Kiệt</span>
+													<span class="text-sm text-green-500">Quận 1</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-col w-[160px] border-r cursor-pointer hover:bg-slate-100 hover:rounded-lg p-1 hover:shadow-xl">
+					<span class="text-sm text-orange-500 text-left">Nhận phòng</span>
+					<input type="text" id="start_time" placeholder="">
+				</div>
+				<div class="flex flex-col w-[160px] border-r cursor-pointer hover:bg-slate-100 hover:rounded-lg p-1 hover:shadow-xl">
+					<span class="text-sm text-orange-500 text-left">Trả phòng</span>
+					<input type="text" id="end_time" placeholder="">
+				</div>
+				<div class="flex flex-col w-[150px] border-r cursor-pointer hover:bg-slate-100 hover:rounded-lg p-1 modal-button hover:shadow-xl"
+					 data-pd-overlay="#small-modal" data-modal-target="small-modal" data-modal-toggle="small-modal">
+					<span class="text-sm text-orange-500 text-left">Số khách</span>
+					<span class="text-left" id="guest_1">2</span>
+				</div>
+				<div>
+					<div id="small-modal"
+						 class="pd-overlay hidden w-full h-full fixed top-0 left-[430px] z-[60] overflow-x-hidden overflow-y-auto mt-[382px]">
+						<div class="opacity-0  ease-out modal-open:opacity-100 transition-all modal-open:duration-500 sm:max-w-lg sm:w-full m-5 sm:mx-auto">
+							<div class="flex flex-col bg-white rounded-2xl py-4 px-5 w-[300px]">
+								<div class="flex justify-between items-center pb-4 border-b border-gray-200">
+									<h4 class="text-sm text-gray-900 font-medium"></h4>
+									<button class="block cursor-pointer close-modal-button bg-orange-500 rounded-full text-white"
+											data-pd-overlay="#small-modal" data-modal-target="small-modal">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											 xmlns="http://www.w3.org/2000/svg">
+											<path d="M7.75732 7.75739L16.2426 16.2427M16.2426 7.75739L7.75732 16.2427"
+												  stroke="white" stroke-width="1.6" stroke-linecap="round"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="overflow-y-auto py-4 min-h-[100px]">
+									<div class="w-full flex p-2 gap-4 justify-content-center items-center">
+										<div class="w-1/2">
+											<span>Người lớn</span>
+										</div>
+										<div class="w-1/2 flex p-2 gap-4 justify-content-center items-center">
+											<button class="block text-3xl" onclick="onDecreaseGuestClick()">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+													 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"
+													 class="size-8 hover:text-orange-500">
+													<path stroke-linecap="round" stroke-linejoin="round"
+														  d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+												</svg>
+											</button>
+											<span class="text-base text-orange-500 font-bold" id="guest_2">2</span>
+											<button class="block text-3xl" onclick="onIncreaseGuestClick()">
+
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+													 viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"
+													 class="size-8 hover:text-orange-500">
+													<path stroke-linecap="round" stroke-linejoin="round"
+														  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+												</svg>
+											</button>
+										</div>
+
+									</div>
+									<hr>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex flex-col mr-[2px]">
+					<div class="flex w-full">
+						<button class="bg-orange-600 text-white rounded-full w-[140px] h-[50px] flex justify-center items-center cursor-pointer transition-all duration-300 hover:bg-orange-500 uppercase">
+							Tìm
+							phòng
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

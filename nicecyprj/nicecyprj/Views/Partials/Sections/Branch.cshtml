@@ -36,7 +36,7 @@
 
 
 
-<div class="relative top-0 left-0 w-full min-h-full">
+<!--<div class="relative top-0 left-0 w-full min-h-full">
 	<div class="pt-[10px] text-[#282828] flex flex-col items-center text-center leading-[39px] space-y-[16px]">
 		<div class="flex items-center gap-[8px]">
 			<svg width="19" height="36" viewBox="0 0 19 36" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -121,9 +121,9 @@
 							}
 						}
 				</ul>
-			</div>
-			<!-- Hotels -->
-			<div class="relative mt-[30px] px-[16px]">
+			</div>-->
+<!-- Hotels -->
+<!--<div class="relative mt-[30px] px-[16px]">
 				<div class="absolute top-0 left-0 w-full min-h-[1050px] h-[8.72rem] overflow-hidden"
 					  style="background: linear-gradient(rgb(251 251 251) 0%, rgb(251 251 251) 70.47%, rgb(227 227 227 / 0%) 100%)">
 				</div>
@@ -176,7 +176,7 @@
 											<div class="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
 												<a href="@hotel_url" class="text-xl"><img src="@hotel_image"
 														class="transition-all duration-300 hover:scale-110" alt="card-image" /></a>
-												
+
 											</div>
 											<div class="px-4 py-2">
 												<div class="flex items-center">
@@ -258,6 +258,52 @@
 					}
 				}
 			</div>
+		</div>
+	</div>
+</div>-->
+
+<div class="w-full mt-[20px]">
+	<div class="container mx-auto py-10">
+		<h1 class="text-3xl font-bold text-center mb-10">Điểm đến</h1>
+		<!-- Tabs -->
+		<div class="flex justify-center space-x-4 mb-8">
+			<button class="px-4 py-2 rounded-full bg-black text-white">Hồ Chí Minh</button>
+		</div>
+		<div class="flex justify-center space-x-4 mb-6">
+			<button class="text-orange-600 font-bold">Tất cả</button>
+			<button class="text-gray-600">Quận 3</button>
+			<button class="text-gray-600">Quận 1</button>
+			<button class="text-gray-600">Quận 2</button>
+			<button class="text-gray-600">Tân Bình</button>
+			<button class="text-gray-600">Bình Thạnh</button>
+			<button class="text-gray-600">Phú Nhuận</button>
+		</div>
+
+		<!-- Cards -->
+		<div class="grid md:grid-cols-3 gap-6 p-2">
+			@if (hotel_list != null && hotel_list.Count > 0)
+			{
+				var random = new Random();
+				foreach (var hotel in hotel_list)
+				{
+					var hotel_entry = (Hotel)hotel;
+					var image_index_random = random.Next(3);
+					var hotel_image = hotel_entry.Photos.ToList()[image_index_random].Url();
+					var hotel_title = hotel_entry.Name;
+					var hotel_url = hotel_entry.Url();
+					var hotel_categories = hotel_entry.Features.ToList();
+					<div class="bg-white shadow-lg rounded-lg overflow-hidden">
+						<img src="@hotel_image"
+							 alt="@hotel_title" class="w-full h-48 object-cover">
+						<div class="p-5">
+							<h2 class="text-lg font-semibold mb-2">@hotel_title</h2>
+							<a href="@hotel_url" class="text-orange-600 font-bold mt-4 block hover:text-orange-500 w-full">
+								<span class="hover:text-orange-500">Đặt ngay →</span>
+							</a>
+						</div>
+					</div>
+				}
+			}	
 		</div>
 	</div>
 </div>

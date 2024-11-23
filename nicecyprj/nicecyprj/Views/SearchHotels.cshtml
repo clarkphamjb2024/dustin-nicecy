@@ -40,7 +40,7 @@
 </style>
 
 
-<div class="min-h-full mt-[30px] container">
+<div class="w-full mt-[50px]">
 	<!-- Custom Style -->
 	<style>
 		.nav-for-slider .swiper-slide {
@@ -108,9 +108,92 @@
 					cursor: pointer;
 				}
 	</style>
-	<section class="mb-[3px] z-[10]">
-		<!--HTML CODE-->
-		<div class="w-full relative">
+	<div class="container mx-auto px-4 py-6">
+		<!-- Header Section -->
+		<div class="flex justify-between items-center mb-6">
+			<h2 class="text-lg font-bold">28 khách sạn phù hợp</h2>
+			<button class="text-blue-500 hover:underline">Sắp xếp: Phổ biến nhất</button>
+		</div>
+
+		<div class="flex flex-col md:flex-row lg:flex-row gap-2">
+			<!-- Filters Section -->
+			<aside class="md:w-1/4 lg:w-1/4 w-full space-y-4">
+
+				<!-- Travel Plans -->
+				<div class="border rounded-lg p-4 bg-white">
+					<h3 class="font-semibold mb-2">Kế hoạch chuyến đi</h3>
+					<ul class="space-y-2">
+						<li>
+							<input type="checkbox" id="du-lich" class="mr-2">
+							<label for="du-lich">Du lịch nghỉ dưỡng</label>
+						</li>
+						<li>
+							<input type="checkbox" id="ngan-ngay" class="mr-2">
+							<label for="ngan-ngay">Công tác ngắn ngày</label>
+						</li>
+						<li>
+							<input type="checkbox" id="dai-ngay" class="mr-2">
+							<label for="dai-ngay">Công tác dài ngày</label>
+						</li>
+					</ul>
+				</div>
+			</aside>
+
+			<!-- Hotels Section -->
+			<main class="md:w-3/4 lg:w-3/4 w-full space-y-6">
+
+				@if (Model.Data != null && Model.Data.Any())
+				{
+					foreach (var hotel in Model.Data)
+					{
+						<div class="flex flex-col md:flex-row lg:flex-row border rounded-2xl overflow-hidden bg-white">
+
+							<img src="@hotel.ImgUrl"
+								 alt="M Village Living Võ Thị Sáu" class="md:w-1/3 lg:w-1/3 w-full object-cover">
+							<div class="p-4 md:w-2/3 lg:w-2/3 w-full">
+								<h3 class="font-semibold text-lg">@hotel.HotelName</h3>
+								<p class="text-sm text-gray-500">129 - 131 Tôn Thất Đạm, P. Bến Nghé, Q.1, HCM</p>
+								<div class="flex flex-wrap gap-2 mt-2">
+									<span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">
+										Du lịch nghỉ
+										dưỡng
+									</span>
+									<span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Workcation</span>
+									<span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded">An ninh 24/7</span>
+								</div>
+								<p class="mt-4 text-gray-700">
+									@hotel.HotelDescription
+								</p>
+								<div class="grid grid-cols-2 gap-4 mt-6">
+									@if (@hotel.Features != null && @hotel.Features.Any())
+									{
+										foreach (var category in @hotel.Features)
+										{
+											<div class="flex items-center">
+												<span class="text-orange-500 text-xl mr-3">🔹</span>
+												<p class="text-gray-700">@category.FeatureName</p>
+											</div>
+										}
+									}
+								</div>
+								<div class="mt-4 flex justify-between items-center">
+									<span class="text-xl font-bold text-red-500"></span>
+									<a href="@hotel.Url" class="text-orange-600 font-bold mt-4 block hover:text-orange-500">
+										<span class="bg-orange-500 text-white px-4 py-2 rounded-full">Chọn phòng</span>
+									</a>
+
+								</div>
+							</div>
+						</div>
+
+					}
+				}
+			</main>
+		</div>
+	</div>
+	<!--<section class="mb-[3px] z-[10]">-->
+	<!--HTML CODE-->
+	<!--<div class="w-full relative">
 			<div class="swiper multiple-slide-carousel swiper-container relative">
 				<div class="swiper-wrapper mb-16">
 					@foreach (var img in Model.Images)
@@ -151,7 +234,7 @@
 											<a href="@hotel.Url" class="text-xl">
 												<img src="@hotel.ImgUrl" alt="card-image" class="h-[200px] w-full object-cover rounded-lg">
 											</a>
-											
+
 										</div>
 										<div class="grid grid-cols-3 gap-2">
 											@foreach (var photo in hotel.ImgUrls.Take(3))
@@ -170,7 +253,7 @@
 										<div class="mb-4 rounded-full w-[80px] bg-teal-600 py-0.5 px-2.5 border border-transparent text-white w-auto">NICECY</div>
 										<div class="mb-4 rounded-full w-[80px] bg-teal-600 py-0.5 px-2.5 border border-transparent text-white w-auto">@hotel.DistrictName</div>
 									</div>
-									
+
 									<h4 class="mb-2 text-orange-600 text-xl font-semibold">
 										<a href="@hotel.Url" class="text-xl">
 											@hotel.HotelName
@@ -203,7 +286,7 @@
 			}
 
 		</div>
-	</section>
+	</section>-->
 </div>
 <!-- Custom Slider -->
 <script>

@@ -18,6 +18,149 @@
 	<!-- *  *  *  *  Stylesheets *  *  *  * -->
 	<!-- *  *  *  *  *  *  *  *  *  *  *  * -->
 	@Html.Partial("~/Views/Partials/Stylesheets.cshtml")
+	<style>
+		body {
+		font-family: "Be Vietnam Pro", sans-serif;
+		font-weight: 500;
+		line-height: 20px;
+		font-style: normal;
+	}
+
+	/* CSS Code */
+	.swiper-wrapper {
+		width: 100%;
+		height: max-content !important;
+		padding-bottom: 64px !important;
+		-webkit-transition-timing-function: linear !important;
+		transition-timing-function: linear !important;
+		position: relative;
+	}
+
+	.swiper-pagination-bullet {
+		background: #ea421c;
+		width: 15px;
+		height: 15px;
+	}
+
+	.swiper-pagination {
+		margin-bottom: 30px;
+	}
+
+	nav a {
+	}
+
+	a:hover,
+	a:focus {
+		color: #ffffff !important;
+	}
+
+	.header {
+		background-color: transparent;
+		transition: background-color 1s ease-in, box-shadow 4s ease;
+	}
+
+		.header a {
+			color: #ffffff !important;
+		}
+
+		.header .menu-mobile a {
+			color: #000000;
+		}
+
+	.scrolled {
+		background-color: #ffffff;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	}
+
+		.scrolled a {
+			color: #000000 !important;
+		}
+
+	.menu a {
+		color: #000000 !important;
+	}
+
+	.scrolled a:hover,
+	a:focus {
+		color: #ea421c !important;
+	}
+
+	@@media (min-width: 768px) {
+		body {
+			margin-top: -195px;
+		}
+	}
+
+	/* Hide the default checkbox */
+	.custom-checkbox input[type="checkbox"] {
+		display: none;
+	}
+
+	/* Style the label (span) text as needed */
+	.custom-checkbox span {
+		font-size: 15px;
+		color: #333;
+	}
+
+	/* Optional: Add a hover effect or interaction */
+	.custom-checkbox input[type="checkbox"]:checked + span {
+		color: rgb(234 88 12);
+		/* Change color when checked */
+	}
+
+	.truncate-text {
+		width: 100%;
+		/* Or set a fixed width if needed */
+		white-space: nowrap;
+		/* Prevents the text from wrapping to the next line */
+		overflow: hidden;
+		/* Hides any content that overflows */
+		text-overflow: ellipsis;
+		/* Adds the "..." at the end of the text */
+		display: block;
+		/* Ensures block-level styling for overflow behavior */
+		max-width: 100ch;
+		/* Restricts the width of the text container to 100 characters */
+	}
+
+	#start_time {
+		font-size: 16px;
+		outline: none;
+		border-radius: 9999px;
+	}
+
+		#start_time:focus {
+			border: none;
+			background: rgb(241 245 249);
+		}
+
+		#start_time:hover {
+			background: rgb(241 245 249);
+			border-radius: 9999px;
+		}
+
+
+	#end_time {
+		font-size: 16px;
+		outline: none;
+		border-radius: 9999px;
+	}
+
+		#end_time:focus {
+			border: none;
+			background: rgb(241 245 249);
+		}
+
+		#end_time:hover {
+			background: rgb(241 245 249);
+			border-radius: 9999px;
+		}
+
+	.flatpickr-day.selected {
+		background-color: rgb(234 88 12);
+		border-color: rgb(234 88 12);
+	}
+	</style>
 </head>
 
 <body class="bg-cream">
@@ -44,6 +187,143 @@
 	@Html.Partial("~/Views/Partials/Javascripts.cshtml")
 
 
+	<script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+	<!--JAVASCRIPT CODE-->
+	<script>
+		var swiper = new Swiper(".master-carousel", {
+			loop: true,
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+				nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+			loop: true,
+			fraction: true,
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			}
+		});
+
+		const header = document.getElementById('header');
+		// Function to add the 'scrolled' class when scrolling past 300px
+		function handleScroll() {
+
+			console.log(window.scrollY);
+			if (window.scrollY >= 100) {
+				header.classList.add('scrolled'); // Add the 'scrolled' class
+			} else {
+				header.classList.remove('scrolled'); // Remove the 'scrolled' class
+			}
+		}
+		// Add scroll event listener
+		window.addEventListener('scroll', handleScroll);
+
+
+		var options = {
+			strings: ["Hồ Chí Minh?"],
+			typeSpeed: 90,
+			backSpeed: 30,
+			backDelay: 1000,
+			startDelay: 500,
+			loop: false
+		};
+
+		var typed = new Typed("#typed-output", options);
+	</script>
+
+	<script>
+		let selectedOptions = [];
+		let selectedDistrictOptions = [];
+
+		function toggleCheckbox() {
+			const checkboxes = document.querySelectorAll('.cbCity');
+
+			checkboxes.forEach((checkbox) => {
+				const index = selectedOptions.indexOf(checkbox.value);
+				if (checkbox.checked) {
+					if (index === -1) {
+						selectedOptions.push(checkbox.value);
+					}
+				} else {
+					if (index > -1) {
+						selectedOptions.splice(index, 1);
+					}
+				}
+			})
+			// Display selected options
+			document.getElementById('typed-output').innerHTML = selectedOptions.join(', ');
+		}
+
+		function toggleDistrictCheckbox() {
+			const checkboxes = document.querySelectorAll('.cbDistrict');;
+
+			checkboxes.forEach((checkbox) => {
+				const index = selectedDistrictOptions.indexOf(checkbox.value);
+				if (checkbox.checked) {
+					if (index === -1) {
+						selectedDistrictOptions.push(checkbox.value);
+					}
+				} else {
+					if (index > -1) {
+						selectedDistrictOptions.splice(index, 1);
+					}
+				}
+			})
+			// Display selected options
+			document.getElementById('typed-output').innerHTML = selectedDistrictOptions.join(', ');
+		}
+
+		function getSelectedOptions() {
+			const checkboxes = document.querySelectorAll('.checkbox');
+			let selectedOptions = [];
+			checkboxes.forEach(function (checkbox) {
+				if (checkbox.checked) {
+					selectedOptions.push(checkbox.value); // Add value to the array
+				}
+			});
+			// Display selected options
+			document.getElementById('selected-options').innerHTML = 'Selected: ' + selectedOptions.join(', ');
+		}
+
+		let guests = 2;
+
+		document.getElementById('guest_1').innerHTML = guests;
+		document.getElementById('guest_2').innerHTML = guests;
+
+		function onIncreaseGuestClick() {
+			guests++;
+			document.getElementById('guest_1').innerHTML = guests;
+			document.getElementById('guest_2').innerHTML = guests;
+		}
+		function onDecreaseGuestClick() {
+			if (guests > 1) {
+				guests--;
+			}
+			document.getElementById('guest_1').innerHTML = guests;
+			document.getElementById('guest_2').innerHTML = guests;
+		}
+	</script>
+
+	<script>
+		flatpickr("#start_time", {
+			defaultDate: new Date(),
+			enableTime: true,	// Enable time selection
+			dateFormat: "d-m-Y H:i",	// Format: Year-Month-Day Hour:Minute
+		});
+
+		flatpickr("#end_time", {
+			defaultDate: new Date(),
+			enableTime: true,	// Enable time selection
+			dateFormat: "d-m-Y H:i",	// Format: Year-Month-Day Hour:Minute
+		});
+	</script>
 </body>
 
 </html>
