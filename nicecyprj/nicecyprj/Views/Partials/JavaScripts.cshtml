@@ -44,6 +44,26 @@
 		autoplay: {
 			delay: 5000,
 			disableOnInteraction: false,
+		}
+	});
+	new Swiper(".hotel-slide-carousel", {
+		loop: true,
+		fraction: true,
+		navigation: {
+			nextEl: ".multiple-slide-carousel .swiper-button-next",
+			prevEl: ".multiple-slide-carousel .swiper-button-prev",
+		},
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
+		pagination: {
+			el: ".swiper-pagination",
+			clickable: true,
+		},
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
 		},
 	});
 	new Swiper(".multiple-slide-carousel", {
@@ -60,7 +80,7 @@
 				spaceBetween: 30
 			},
 			1028: {
-				slidesPerView: 2,
+				slidesPerView: 3,
 				spaceBetween: 30
 			},
 			990: {
@@ -183,7 +203,7 @@
 			sc: "HTLCHANNEL"
 		});
 
-		window.location.href = "/danh-sach-khach-san?" + queryParams.toString();
+		window.location.href = "/tim-kiem-khach-san?" + queryParams.toString();
 	}
 
 	function updateSearchbox() {
@@ -199,11 +219,6 @@
 			let allAvailableDistricts = [];
 
 			if (citiesDistrictsData && citiesDistrictsData.length > 0) {
-				//citiesDistrictsData.forEach(d => {
-				//	const districts = d.districts.filter(x => searchParams.get('ap').split('.').includes(x.id.toString()));
-				//	selectedDistrictsFromUser.push(...districts);
-				//});
-				//$('#ap').text(selectedDistrictsFromUser.map(d => d.text).join(', '));
 				citiesDistrictsData.forEach(data => {
 					const selectedDistricts = data.districts.filter(district => searchParams.get('ap').split('.').includes(district.id.toString()));
 

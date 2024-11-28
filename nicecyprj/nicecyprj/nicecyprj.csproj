@@ -571,6 +571,7 @@
     <Compile Include="App_Data\Models\Home.generated.cs" />
     <Compile Include="App_Data\Models\Hotel.generated.cs" />
     <Compile Include="App_Data\Models\Image.generated.cs" />
+    <Compile Include="App_Data\Models\ListHotels.generated.cs" />
     <Compile Include="App_Data\Models\Member.generated.cs" />
     <Compile Include="App_Data\Models\NavigationBase.generated.cs" />
     <Compile Include="App_Data\Models\Room.generated.cs" />
@@ -647,6 +648,8 @@
     <Content Include="Views\SearchHotels.cshtml" />
     <Content Include="Views\Blank.cshtml" />
     <Content Include="Views\MacroPartials\AboutUs.cshtml" />
+    <Content Include="Views\ListHotels.cshtml" />
+    <Content Include="Views\MacroPartials\baomat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

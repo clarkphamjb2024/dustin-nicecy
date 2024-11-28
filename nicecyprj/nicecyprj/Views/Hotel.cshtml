@@ -154,148 +154,43 @@
 	.nav-for-slider .swiper-slide-thumb-active img {
 		border: 1px solid #ccc !important;
 	}
+
+	.swiper-pagination-bullet-active {
+		background-color: rgb(234 88 12);
+	}
+
+	.swiper-pagination-bullet {
+		width: 15px;
+		height: 15px;
+	}
 </style>
-<div class="min-h-full mt-[30px] container">
-	<!-- Custom Style -->
-	<style>
-		.nav-for-slider .swiper-slide {
-			cursor: pointer;
-			margin-right: 0 !important;
-		}
 
-		.swiper-wrapper {
-			height: auto;
-		}
-
-		.nav-for-slider .swiper-slide img {
-			border: 2px solid transparent;
-			border-radius: 5px;
-		}
-
-		.nav-for-slider .swiper-slide-thumb-active img {
-			border-color: rgb(79 70 229);
-		}
-
-		.lightbox {
-			display: none;
-			position: fixed;
-			z-index: 999;
-			top: 0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-			overflow: hidden;
-			background-color: rgba(0, 0, 0, 0.8);
-		}
-
-		.lightbox-image {
-			display: block;
-			margin: auto;
-			max-width: 100%;
-			max-height: 100%;
-		}
-
-		.close {
-			color: #fff;
-			font-size: 3em;
-			position: absolute;
-			top: 20px;
-			right: 30px;
-			cursor: pointer;
-		}
-
-		.gallery {
-			width: 90vw;
-			max-width: 1200px;
-			margin: 0 auto;
-			grid-template-rows: 1fr;
-			grid-column-gap: 10px;
-			grid-row-gap: 10px;
-		}
-
-			.gallery img {
-				max-width: 100%;
-				cursor: pointer;
-			}
-
-				.gallery img:hover {
-					max-width: 100%;
-					cursor: pointer;
-				}
-	</style>
-	<!-- https://pagedone.io/blocks/marketing/gallery -->
-	<section class="mb-[3px] relative z-[10] hidden md:block lg:block">
-		<div class="mx-auto w-full bg-white ">
-			<div class="flex flex-col-reverse gap-2 mx-auto">
-				<div class="slider-box flex flex-col xl:flex-row gap-2 md:h-[500px] lg:h-[500px]">
-					<div class="box w-full gallery">
-						<div class="swiper main-slide-carousel swiper-container relative">
-							<div class="swiper-wrapper w-[1400px]">
-								@foreach (var hotel_photo in Model.Photos)
-								{
-									<div class="swiper-slide">
-										<div class="block xl:w-[1400px] w-full h-[487px] rounded">
-											<img src="@hotel_photo.Url()"
-												  alt="Gallery image"
-												  class="gallery-image w-full h-full mx-auto rounded object-cover" />
-										</div>
-									</div>
-								}
-							</div>
-						</div>
-					</div>
-					<div class="w-full mb-[10px] hidden md:block lg:block">
-						<div class="nav-for-slider">
-							<div class="swiper-wrapper justify-center md:gap-2 gap-2 xl:flex-col">
-								@foreach (var hotel_photo in Model.Photos.Take(3))
-								{
-									<div class="swiper-slide thumbs-slide lg:!w-[300px] md:!h-[158px] w-full h-[158px]">
-										<img src="@hotel_photo.Url()"
-											  alt="Gallery image"
-											  class="gallery-image w-full cursor-pointer h-full rounded-2xl border-2 border-gray-200 transition-all duration-500 hover:border-indigo-600 object-cover" />
-									</div>
-								}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="lightbox" id="lightbox">
-			<span class="close" id="close">&times;</span>
-			<img src="" alt="" class="lightbox-image" id="lightbox-image">
-		</div>
-	</section>
-
-	<section class="mb-[3px] z-[10] block md:hidden lg:hidden">
-		<div class="w-full relative">
-			<div class="swiper fraction-slide-carousel swiper-container relative h-[390px]">
-				<div class="swiper-wrapper">
-
-					@foreach (var hotel_photo in Model.Photos)
-					{
-						<div class="swiper-slide">
-							<div class="bg-indigo-50 rounded-2xl h-96 flex justify-center items-center">
-								<img src="@hotel_photo.Url()" class="w-full h-full rounded-2xl" alt="">
-							</div>
-						</div>
+<div class="w-full relative">
+	<div class="swiper hotel-slide-carousel swiper-container relative">
+		<div class="swiper-wrapper">
+			@if (Model.Photos != null)
+			{
+				for (int i = 0; i < Model.Photos.Count(); i++)
+				{
+					<style>
+					#swiper-background-@i {
+						background-image: url(@Model.Photos.ToList()[i].Url());
 					}
-				</div>
-				<div class="flex items-center gap-8 lg:justify-start justify-center">
-					<button id="slider-button-left"
-							  class="swiper-button-prev group !p-2 flex justify-center items-center border border-solid border-indigo-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !left-5 hover:bg-indigo-600"
-							  data-carousel-prev>
-					</button>
-					<button id="slider-button-right"
-							  class="swiper-button-next group !p-2 flex justify-center items-center border border-solid border-indigo-600 !w-12 !h-12 transition-all duration-500 rounded-full !top-2/4 !-translate-y-8 !right-5 hover:bg-indigo-600"
-							  data-carousel-next>
-					</button>
-				</div>
-				<div class="swiper-pagination"></div>
-			</div>
+					</style>
+					<div class="swiper-slide">
+						<div class="bg-indigo-50 flex justify-center items-center h-[80vh]" style="
+					background-repeat: no-repeat;
+					background-position: center;
+					background-size: cover;" id="swiper-background-@i">
+						</div>
+					</div>
+				}
+			}
 		</div>
-	</section>
-
+		<div class="swiper-pagination !bottom-2 !top-auto !w-80 right-0 mx-auto"></div>
+	</div>
+</div>
+<div class=" mt-[30px] container">
 	<section class="py-[20px] relative">
 		<div class="mx-auto bg-white p-[30px] flex flex-col justify-center gap-3 lg:flex-row lg:justify-between max-lg:max-w-2xl mx-auto max-w-full rounded">
 			<div class="w-full lg:w-2/3">
@@ -317,7 +212,7 @@
 						{
 							<div class="flex gap-2 items-center justify-start">
 								<img src="@category.Icon.Url()"
-									  class="w-[30px] h-[30px]"><span class="sc-eGRUor dIaozk">
+									 class="w-[30px] h-[30px]"><span class="sc-eGRUor dIaozk">
 									@category.FeatureName
 								</span>
 							</div>
@@ -329,7 +224,7 @@
 				<div class="md:w-[500px] lg:w-[500px] h-[178px] relative">
 					<a href="@Model.MapUrl">
 						<img class="w-full h-full object-cover rounded transition-all duration-300 hover:scale-105 cursor-pointer"
-							  src="@Model.MapPhoto.Url()" />
+							 src="@Model.MapPhoto.Url()" />
 					</a>
 				</div>
 				<p class="mt-[10px] mb-[10px]">@Model.MapDescription</p>
